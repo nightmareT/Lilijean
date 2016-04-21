@@ -1,0 +1,72 @@
+<div class="yzp-container" ng-controller="DashboardCtrl">
+    <div ui-view>
+        <!-- <div ng-hide="$storage.TRIP.status !='prehead'"> -->
+            <div id="trip-edit_btn" ng-show="$storage.USER.role != 'user'">
+                <a ng-click="tripEdit();">
+                    <div><img src="images/edit.png" alt=""></div>
+                    <div>{{$storage.TRIP.iscreateStatus ? "创建" : "编辑"}}</div>
+                </a>
+            </div>
+       <!--  </div>  -->
+        <h3 class="text-center sub_msg" ng-show="$storage.USER.role == 'user'">亲，你还没有实名哦，请通过App提交实名</h3>
+        <div ng-hide="$storage.TRIP.iscreateStatus">
+            <div id="trip-info_header">
+                <div class="trip_title" ng-bind="trip.title"></div>
+                <div class="underline"></div>
+                <div class="where" ng-bind="trip.trip_target | tripTargetFilter"></div>
+                <div class="date"><span ng-bind="trip.start_time * 1000 | date: 'yyyy.MM.dd'"></span> - <span ng-bind="trip.end_time * 1000 | date: 'yyyy.MM.dd' "></span></div>
+                <img ng-src="{{trip.image_url}}">
+                <div class="sponsor-wrap">
+                    <span ng-repeat="sponsor in trip.sponsors track by $index">
+               <img class="sponsor" ng-src="{{sponsor.image.url}}" >
+            </span>
+                </div>
+            </div>
+            <div id="trip-info_travel">
+                <div>
+                    <div class="text-center">
+                        <div class="subtitle">行程安排</div>
+                        <div class="underline"></div>
+                    </div>
+                    <div class="travel_info">
+                        <div ng-repeat="detail in trip.detail track by $index">
+                            <p class="item" ng-if="detail.type == 'word'" ng-bind-html="detail.data"></p>
+                            <img class="travel_img" ng-if="detail.type == 'image'" ng-src="{{detail.data}}">
+                            <div class="date item" ng-if="detail.type == 'time'">
+                                <span><img style="width: 1.5rem; height: 1.5rem;" src="images/time.png"></span>
+                                <span>{{detail.extras.date * 1000 | date: 'yyyy-MM-dd'}}</span>
+                                <span ng-if="detail.extras.start_time">{{detail.extras.start_time * 1000 | date: 'HH:ss'}}
+                                </span>
+                                <span ng-if="detail.extras.end_time">{{detail.extras.end_time * 1000 | date: 'HH:ss'}}</span>
+                            </div>
+                            <div class="where item" ng-if="detail.type == 'locate'">
+                                <span><img style="width: 1.5rem; height: 1.7rem;"  src="images/location.png"></span>
+                                <span>{{detail.data}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="trip-info_product">
+                <div>
+                    <div><img style="width: 6rem; height: 6rem; border-radius: 50%;" ng-src="{{productSupply.image}}"></div>
+                    <div style="margin-top: 1rem; font-size: 2rem;">{{productSupply.title}}</div>
+                    <div style="margin-top: 1rem; font-size: 2rem;" ng-if="productSupply.subtitle">{{productSupply.subtitle}}</div>
+                    <div class="underline"></div>
+                </div>
+                <div class="trip-info_product--meal-section" ng-repeat="real in trip.set_meals">
+                    <div class="meal-number">套餐{{meals[$index]}}</div>
+                    <div>
+                        <div class="meal_title">{{real.title}}</div>
+                        <div class="underline"></div>
+                    </div>
+                    <div>
+                        <span>有效期至{{real.valid_time * 1000 | date: 'yyyy-MM-dd'}}</span>
+                        <span class="pull-right meal-number"><img style="width: 2rem; height: 2rem;" src="images/money.png" alt=""> {{real.price}}</span>
+                    </div>
+                    <p ng-bind-html="real.desc"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

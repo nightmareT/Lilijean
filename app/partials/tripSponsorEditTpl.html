@@ -1,0 +1,25 @@
+<div step-bar="4"></div>
+<div ng-controller="TripSponsorEditCtrl">
+    <div id="trip-sponsor">
+        <div class="trip-sponsor_header">
+            <div class="trip_title">出行人数、品牌赞助</div>
+            <div class="underline"></div>
+            <div class="sub_msg">你想邀请几个小伙伴一起出行呢?</div>
+            <input type="text" class="form-control" placeholder="请输入出行人数   (不超过30人)" size="60%" ng-model="private_users">
+        </div>
+        <div class="sub_msg">你需要哪些品牌赞助呢？他们能给你提供丰富的礼品哦(最多5个)</div>
+        <div class="trip-sponsor_sponsor">
+            <div ng-repeat="sponsor in sponsors track by $index" class="sponsor_item">
+                <img ng-src="{{sponsor.value.image.url}}"class="img-rounded">
+                <div>
+                    <div>{{sponsor.value.name | limitTo: 8}}...</div>
+                    <input type="checkbox" ng-model="sponsor.isChecked" ng-true-value="true" ng-false-value="false" ng-checked="sponsor.isChecked">
+                </div>
+            </div>
+        </div>
+        <div class="trip-operate">
+            <button class="btn btn-primary c_button" ng-click="preTripTitleEdit();">上一步</button>
+            <button class="btn btn-primary c_button" ng-click="nextTravelEdit()">下一步</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div step-bar="2"></div>
+<div ng-controller="TripDateEditCtrl">
+    <div id="trip-date">
+        <div>
+            <div class="trip_title">旅行日期</div>
+            <div class="underline"></div>
+        </div>
+        <div id="tripDatePicker">
+            <div class="beginDate">
+                <div class="tripDate">出行日期</div>
+                <datetimepicker data-ng-model="dateRangeStart" data-datetimepicker-config="{ startView:'day', minView:'day' }" data-before-render="beforeRenderStartDate($view, $dates, $leftDate, $upDate, $rightDate)" />
+            </div>
+            <div class="endDate">
+                <div class="tripDate">结束日期</div>
+                <datetimepicker data-ng-model="dateRangeEnd" data-datetimepicker-config="{ startView:'day', minView:'day' }" data-before-render="beforeRenderEndDate($view, $dates, $leftDate, $upDate, $rightDate)" />
+            </div>
+        </div>
+        <div class="trip-operate">
+            <button class="btn btn-primary c_button" ng-click="preTargetEdit();">上一步</button>
+            <button class="btn btn-primary c_button" ng-click="nextTripTitleEdit();">下一步</button>
+        </div>
+    </div>
+</div>

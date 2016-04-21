@@ -1,0 +1,32 @@
+<div class="navbar navbar-inverse bs-docs-nav navbar-fixed-top sticky-navigation" ng-controller="navCtrl">
+    <div class="container">
+        <div class="navbar-header">
+            <!-- LOGO ON STICKY NAV BAR -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#kane-navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img src="./plugins/images/logo-black.png"></a>
+        </div>
+        <!-- NAVIGATION LINKS -->
+        <div class="navbar-collapse collapse" id="kane-navigation">
+            <ul id="trip_nav" class="nav navbar-nav navbar-right main-navigation">
+                <li ng-hide="isLogined"><a data-toggle="modal" data-target="#loginModal">发布行程</a></li>
+                <li ng-show="isLogined">
+                    <a><img style="width: 25px; height: 25px; border-radius: 50%;" ng-src="{{user.avatar_url || user.provider_image}}"></a>
+                </li>
+                <li ng-show="isLogined"><a>{{user.name}}</a></li>
+                <li ng-show="isLogined">
+                    <a ng-click="loginOut()"><img src="images/loginout.png" style="margin-right: 0.5rem;">注销</a>
+                </li>
+                <li ng-show="isLogined">
+                    <div style="width: 1px; height: 20px; margin: 20px 0px; background-color:#9D9D9D;"> </div>
+                </li>
+                <li ng-show="isLogined"><a ng-click="redirectToTripEdit()" style="color: #008CD9;">我的小队</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /END CONTAINER -->
+</div>

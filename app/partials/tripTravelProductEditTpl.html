@@ -1,0 +1,52 @@
+<div step-bar="6" id="step"></div>
+<div ng-controller="tripTravelProductCtrl">
+    <div id="trip-product">
+        <div class="custom_public">
+            <div class="ico_block">
+                <div class="ico_header" ng-click="clickShow(this, 1)" ng-class="{selectedBorder: selectedStatus.noneed}">
+                    <img class="choice" src="images/product_choice.png" ng-show="selectedStatus.noneed">
+                    <div class="ico_img">
+                        <img src="images/icon_unwanted.png">
+                    </div>
+                    <div class="ico_name">不需要/稍后再说</div>
+                </div>
+                <div class="ico_msg">如果你在考虑中, 请选择"不需要/以后再说".在出行前, PAI队出行前可随时修改</div>
+            </div>
+            <div class="ico_block">
+                <div class="ico_header" ng-click="clickShow(this, 2)" ng-class="{selectedBorder: selectedStatus.custom}">
+                    <img class="choice" src="images/product_choice.png" ng-show="selectedStatus.custom">
+                    <div class="ico_img">
+                        <img src="images/icon_custom.png">
+                    </div>
+                    <div class="ico_name">自主定制</div>
+                </div>
+                <div class="ico_msg">"自主定制"由发起人指定行程产品和价格。发起人需要提前预付所有小队成员款项, 小队活动成功结束后, PAI会支付所有款项支付给发起人</div>
+            </div>
+        </div>
+        <div class="custom_private">
+            <div>
+                <div>私人定制</div>
+                <div class="underline"></div>
+            </div>
+            <div class="ico_msg">你可选择以下旅行社帮你指定行程计划</div>
+            <div class="ico_msg">该旅行社的客服将及时与你联系提供你所需的酒店、景点等产品</div>
+            <div class="ico_block">
+                <div class="ico_header" ng-click="clickShow(this, 3)" ng-class="{selectedBorder: selectedStatus.private}">
+                    <img class="choice" src="images/product_choice.png" ng-show="selectedStatus.private">
+                    <div class="ico_img">
+                        <img src="images/one_travel.png">
+                    </div>
+                    <div class="ico_name">一号旅行</div>
+                </div>
+            </div>
+        </div>
+        <div class="trip-operate">
+            <button class="btn btn-primary c_button" ng-click="preTravelEdit()">上一步</button>
+            <button class="btn btn-primary c_button" ng-click="nextCustomEdit()" ng-if="selectedStatus.custom"> 下一步 </button>
+            <button class="btn btn-primary c_button" ng-if="!selectedStatus.custom">
+                <span ng-if="$storage.TRIP.iscreateStatus" ng-click="tripCreateCommited()">创建派对</span>
+                <span ng-if="!$storage.TRIP.iscreateStatus" ng-click="tripUpdateCommited()">更新派对</span>
+            </button>
+        </div>
+    </div>
+</div>

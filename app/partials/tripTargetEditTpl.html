@@ -1,0 +1,38 @@
+<div step-bar="1"></div>
+<div ng-controller="TripTargetEditCtrl">
+    <div id="trip-edit">
+        <div>
+            <div class="trip_title">目的地</div>
+            <div class="underline"></div>
+        </div>
+        <div class="targets">
+            <div ng-repeat="target in trip_target track by $index">
+                <a class="glyphicon glyphicon-remove-circle target-remove" ng-click="delTargetByIndex($index)"></a>
+                <span>目的地{{targetNo[$index]}}</span>:<span>{{target}}</span>
+            </div>
+        </div>
+        <div class="say-where">你的目的地是哪儿?</div>
+        <div class="target-search">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="请输入你的目的地" ng-model="key">
+                <span class="input-group-btn"><button class="btn btn-default" ng-click="searchByKey(key)"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+            <div id="cityTab">
+                <div class="city-tab">
+                    <div class="china" ng-click="show(this, 'baidu')" ng-class="{selected: isSelected}">国内城市</div>
+                    <div class="international" ng-click="show(this, 'bing')" ng-class="{selected: !isSelected}">国际城市</div>
+                </div>
+                <div class="trip-citis">
+                    <ul id="city-list">
+                        <li ng-repeat="city in citys track by $index" ng-click="selectCity(this, city)">{{city.address}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="trip-operate">
+            <div style="visibility: false"></div>
+            <button class="btn btn-primary c_button" ng-click="nextDateEdit();">下一步</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div step-bar="6" id="step"></div>
+<div ng-controller="tripCustomCtrl">
+    <div id="trip-custom">
+        <div>
+            <div class="trip_title">自主定制</div>
+            <div class="underline"></div>
+            <div class="sub_msg">面对不同的情况，可定制不同的套餐</div>
+        </div>
+        <div ng-repeat="meal in setMeals" class="setmeal" style="width:70%; padding: 20px; background-color: #F7F8FA; position: relative;border-top: 2px solid white; border-top-width: 4rem;">
+            <div class=" custome-delete" style="position: absolute; right: -5px; top: -5px; border-radius: 50%;">
+                <a class="glyphicon glyphicon-remove-circle" style="background-color: black; color: white;border-radius: 50%;" ng-click="deleteCurrentMeal(this, $index)"></a>
+            </div>
+            <div class="meal-number">套餐{{meals[$index]}}</div>
+            <input type="text" class="form-control" placeholder="请输入套餐名" ng-model="meal.title">
+            <textarea rows="10" class="form-control" placeholder="请输入套餐描述" ng-model="meal.desc"></textarea>
+            <input type="number" class="form-control" placeholder="请输入餐价格" min="1" ng-model="meal.price">
+        </div>
+        <div class="footer_btn">
+            <div style="margin-top: 2rem;">
+                <button style="border-color: #008CD9; color: #008CD9" class="btn btn-default" ng-click="addMeal()">添加套餐</button>
+            </div>
+            <div style="margin-top: 2rem;">
+                <button style="background-color: #008CD9; color: white; padding: 0.5rem 3rem;" class="btn" ng-click="tripUpdateCommited()">提交</button>
+            </div>
+        </div>
+    </div>
+</div>

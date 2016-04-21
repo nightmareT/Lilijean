@@ -1,0 +1,32 @@
+<div step-bar="3"></div>
+<div ng-controller="TripTitleEditCtrl">
+    <div id="trip-title">
+        <div class="trip-title_header">
+            <div class="trip_title">PAI队名称、封面</div>
+            <div class="underline"></div>
+            <div class="sub_msg">为你的PAI队取个炫酷的名字吧~</div>
+            <input type="text" class="form-control" placeholder="请输入你的PAI队标题" size="60%" ng-model="title">
+        </div>
+        <div class="trip-title_section">
+            <div class="sub_msg">选择一张合适的图片作为封面吧~</div>
+            <div class="fileUpload">
+                <img src="images/trip_add.png" width="60px" height="60px">
+                <input type="file" img-cropper-fileread image="cropper.sourceImage" class="upload" />
+            </div>
+            <div class="trip-tittle_sction--img">
+                <div>
+                    <img ng-if="!cropper.sourceImage" ng-src="{{image_url}}" style="width: 500px; height: 300px;">
+                    <canvas ng-if="cropper.sourceImage" width="500" height="300" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="1280" crop-height="720" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>
+                </div>
+                <div ng-if="cropper.sourceImage">
+                    <div class="sub_msg">你的封面预览:</div>
+                    <div ng-show="cropper.croppedImage!= null"><img width="40%" id="croppedImage" ng-src="{{cropper.croppedImage}}" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="trip-operate">
+            <button class="btn btn-primary c_button" ng-click="preDateEdit()">上一步</button>
+            <button class="btn btn-primary c_button" ng-click="nextSponsorEdit()">下一步</button>
+        </div>
+    </div>
+</div>
