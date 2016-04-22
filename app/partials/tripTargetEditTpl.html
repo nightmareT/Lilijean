@@ -19,11 +19,13 @@
                 </span>
             </div>
             <div id="cityTab">
-                <div class="city-tab">
+                
+                <div class="trip-citis">
+                    <div class="city-tab">
                     <div class="china" ng-click="show(this, 'baidu')" ng-class="{selected: isSelected}">国内城市</div>
                     <div class="international" ng-click="show(this, 'bing')" ng-class="{selected: !isSelected}">国际城市</div>
                 </div>
-                <div class="trip-citis">
+                    
                     <ul id="city-list">
                         <li ng-repeat="city in citys track by $index" ng-click="selectCity(this, city)">{{city.address}}</li>
                     </ul>

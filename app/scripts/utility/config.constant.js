@@ -5,7 +5,8 @@
 var constantsModule = angular.module('app.constants', []);
 
 constantsModule
-    .constant('baseURL', 'https://api-www.ipaitrip.com/api/v1/')
+    // .constant('baseURL', 'https://api-www.ipaitrip.com/api/v1/')
+    .constant('baseURL', 'http://192.168.2.144:8080/api/v1/')
     .constant('AUTH_EVENTS', {
         loginSuccess: 'auth-login-success',
         loginFailed: 'auth-login-failed',

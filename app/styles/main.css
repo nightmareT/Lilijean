@@ -348,12 +348,14 @@ header .only-logo .navbar .navbar-header {
 }
 
 #cityTab .city-tab div {
+    margin: 0;
     display: inline-block;
     list-style-type: none;
     height: 3rem;
     /*这是一个问题*/
     width: 49%;
     line-height: 3rem;
+    font-size: 14px;
 }
 
 #cityTab .city-tab div:hover {
@@ -373,7 +375,8 @@ header .only-logo .navbar .navbar-header {
     line-height: 2.5rem;
     list-style: none;
     text-align: left;
-    margin-left: 0.5rem;
+   /* font-size: 0;
+*/    margin-left: 0.5rem;
     }
 
 .target-search .trip-citis li:hover {

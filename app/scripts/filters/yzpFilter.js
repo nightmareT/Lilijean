@@ -48,57 +48,18 @@ filtersModule
         };
     }).filter('travelJsonToHtmlFilter', function() {
         function convertTimeFormatter(time) {
-            var tmp_time = new Date(parseInt(time) * 1000).toLocaleString().split(",")[1].trim();
-            var tmp_time_divideds = tmp_time.split(":");
-            var tmp_time_finilly = "";
-            var tmp_time_divideds_last = tmp_time_divideds[2].split(" ")[1].trim();
-
-            if (tmp_time_divideds_last == "AM") {
-                var tmp_hour_am = parseInt(tmp_time_divideds[0]);
-                var tmp_min_am = parseInt(tmp_time_divideds[1]);
-                if (tmp_hour_am < 10) {
-                    tmp_time_finilly += ("0" + tmp_hour_am + ":");
-                } else {
-                    tmp_time_finilly += (tmp_hour_am + ":");
-                }
-                if (tmp_min_am < 10) {
-                    tmp_time_finilly += ("0" + tmp_min_am)
-                } else {
-                    tmp_time_finilly += tmp_min_am;
-                }
-            } else if (tmp_time_divideds_last == "PM") {
-                var tmp_hour_pm = parseInt(tmp_time_divideds[0]);
-                var tmp_min_pm = parseInt(tmp_time_divideds[1]);
-                if (tmp_hour_pm < 10) {
-                    tmp_time_finilly += ((tmp_hour_pm + 12) + ":");
-                } else {
-                    tmp_time_finilly += (tmp_hour_pm + ":");
-                }
-                if (tmp_min_pm < 10) {
-                    tmp_time_finilly += ("0" + tmp_min_pm)
-                } else {
-                    tmp_time_finilly += tmp_min_pm;
-                }
-            }
-            return tmp_time_finilly;
+            time=time*1000;
+           var time_result=new Date(time).toISOString().slice(11,16);
+           return time_result
         }
 
         function convertDateFormatter(date) {
-            var date_divideds = new Date(parseInt(date) * 1000).toLocaleString().split(",")[0].trim().split("/");
-            var date_finilly = "";
-            var tmp_date_month = parseInt(date_divideds[0]);
-            var tmp_date_day = parseInt(date_divideds[1]);
-            if (tmp_date_month < 10) {
-                date_finilly += date_divideds[2] + "-0" + tmp_date_month;
-            } else {
-                date_finilly += date_divideds[2] + "-" + tmp_date_month;
-            }
-            if (tmp_date_day < 10) {
-                date_finilly += ("-0" + tmp_date_day);
-            } else {
-                date_finilly += ("-" + tmp_date_day);
-            }
-            return date_finilly;
+            date=date*1000;
+            console.log(date);
+            var date_result=new Date(date).toISOString().slice(0,10);
+            // var t=new Date(1461319881347).toISOString().slice(0,10);
+            // console.log(t);
+            return date_result
         }
 
         return function(data) {
@@ -149,6 +110,7 @@ filtersModule
                     $(this).parent().remove();
                 });
             }
+            console.log(travelsText);
             return travelsText;
         };
     }).filter('travelHtmlToJsonFilter', function() {

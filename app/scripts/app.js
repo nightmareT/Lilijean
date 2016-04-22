@@ -1,3 +1,4 @@
+
 'use strict';
 var app = angular.module('app', [
     'ngSanitize',
@@ -73,6 +74,7 @@ app.run(['$rootScope', '$state', '$stateParams', '$localStorage', 'jwtHelper', '
     });
 
     $rootScope.loginOut = function() {
+        //console.log("am I right?");
         if (confirm("确认注销?")) {
             $localStorage.$reset();
             $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);

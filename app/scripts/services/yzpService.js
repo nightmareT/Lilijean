@@ -10,12 +10,16 @@ serviceModule
             return $http
                 .post(baseURL + 'login', credentials)
                 .then(function(res) {
+                   // console.log(res.data.code);
+                   console.log(res.data);
                     if (res.data.code == 200) {
+                         console.log("why");
                         $localStorage.$default({
                             TOKEN: res.data.token,
                             USER: res.data.user
                         });
                         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                        console.log("you");
                     }
                 });
         }
@@ -129,6 +133,7 @@ serviceModule
                         url: obj.url,
                         data: obj.data
                     }).then(function(res) {
+                        console.log(res.data);
                         resolve();
                     });
                 });

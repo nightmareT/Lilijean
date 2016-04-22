@@ -7,8 +7,8 @@ controllerModule
     .controller('navCtrl', ['$scope', '$state', 'AUTH_EVENTS', '$localStorage', function($scope, $state, AUTH_EVENTS, $localStorage) {
         $scope.$on(AUTH_EVENTS.loginSuccess, function(event) {
             $scope.user = $localStorage.USER;
-            console.log($scope.user);
-            console.log($localStorage.TRIP);
+           // console.log($scope.user);
+          //  console.log($localStorage.TRIP);
             $scope.isLogined = true;
         });
         $scope.$on(AUTH_EVENTS.logoutSuccess, function(event) {
@@ -28,19 +28,21 @@ controllerModule
 
     }]).controller('DashboardCtrl', ['$scope', '$state', 'baseURL', '$http', '$filter', '$localStorage', 'tripProductSupplyService', 'tripSponsorService', '$q', 'numberService', function($scope, $state, baseURL, $http, $filter, $localStorage, tripProductSupplyService, tripSponsorService, $q, numberService) {
         $scope.meals = numberService.numbers;
-        console.log($scope.$storage.TRIP);
-        var noya= function(){
-            var defer=$q.defer();
-            if(1){
-                defer.resolve()
-            }
-            else{
-                defer.reject()
-            }
-            return defer.promise
-        }
-        var promise=noya();
-        promise.then(function(){console.log("x")},function(){console.log("z")});
+       // console.log($scope.$storage.TRIP);
+        // var noya= function(){
+        //     var defer=$q.defer();        //a small test about how to use $q in angular 
+        //     if(1){
+        //         defer.resolve()
+        //     }
+        //     else{
+        //         defer.reject()
+        //     }
+        //     return defer.promise
+        // }
+        // var promise=noya();
+        // promise.then(function(){console.log("x")},function(){console.log("z")});
+        $scope.admin={};
+               
         
                 $scope.saveData = function(group_id) {
             var promiseCreateTrip = tripSponsorService.getData();
@@ -87,11 +89,27 @@ controllerModule
                     });
             }
         }
+        // var noya=function(){
+        //     var jungle=$q(function(resolve,reject){
+        //         if(1){
+        //             reject()
+        //         }
+        //         else{
+        //             resolve()
+        //         }
+        //     });
+        //     jungle.then(function(){console.log("x")},function(){console.log("p")})
+        // }
+        // noya();
         $scope.initData = function() {
             //1.获取基本信息
             if ($localStorage.TRIP) {
+                console.log("exit");
                 $scope.trip = angular.copy($localStorage.TRIP);
-                $scope.trip.detail = $filter('tripTravelFilter')(JSON.parse($scope.trip.detail));
+                console.log($scope.trip.detail);
+
+               // $scope.trip.detail = $filter('tripTravelFilter')(JSON.parse($scope.trip.detail));
+               // console.log($scope.trip.detail);
                 $scope.trip.set_meals = $filter('tripProductDescFilter')($scope.trip.set_meals);
                 $scope.productSupply = tripProductSupplyService($scope.trip);
                 $scope.initSponsors();
@@ -107,6 +125,7 @@ controllerModule
                                 }
                                 //true: 有群无队 Create, false: 有群有队 Edit
                                 if (res.data.groups[0].status == "cancel") {
+                                  //  console.log(res.data);
                                     reject(res.data.groups[0]._id);
                                 } else {
                                     resolve(res);
@@ -158,9 +177,9 @@ controllerModule
             }
             //初始化状态
         $scope.initStatus();
-         console.log($localStorage.TRIP);
-         console.log($scope.$storage.TRIP.iscreateStatus);
-         console.log($scope.$storage.TRIP.status);
+        // console.log($localStorage.TRIP);
+        // console.log($scope.$storage.TRIP.iscreateStatus);
+         //console.log($scope.$storage.TRIP.status);
 
         $scope.tripEdit = function() {
             $localStorage.STATUS = "YES";
@@ -169,8 +188,13 @@ controllerModule
     }]).controller('TripEditMain', ['$scope', '$state', 'baseURL', '$http', '$localStorage', function($scope, $state, baseURL, $http, $localStorage) {
 
     }]).controller('TripTargetEditCtrl', ['$scope', '$state', 'baseURL', '$http', '$localStorage', 'numberService', function($scope, $state, baseURL, $http, $localStorage, numberService) {
-        $scope.trip_target = $localStorage.TRIP.trip_target;
-        $("#city-list").hide();
+        if($localStorage.TRIP.trip_target){
+        $scope.trip_target = $localStorage.TRIP.trip_target
+    }
+        $("#cityTab").hide();
+         $scope.admin.first="you";
+         console.log($scope.admin.second);
+
 
         $scope.targetNo = numberService.numbers;
         $scope.nextDateEdit = function() {
@@ -195,7 +219,8 @@ controllerModule
 
         $scope.selectCity = function(self, city) {
             $scope.trip_target.push(city.address);
-            $("#city-list").hide();
+            console.log("mdzz");
+            $("#cityTab").hide();
         }
 
         $scope.searchByKey = function(key) {
@@ -213,12 +238,15 @@ controllerModule
             }).then(function successCallback(res) {
                 $scope.citys = res.data.cities;
             }, function errorCallback(err) {});
-            $("#city-list").show();
+            $("#cityTab").show();
         }
     }]).controller('TripDateEditCtrl', ['$scope', '$state', 'baseURL', '$http', '$localStorage', function($scope, $state, baseURL, $http, $localStorage) {
+        $scope.admin.second="are";
         $scope.dateRangeStart = new Date($localStorage.TRIP.start_time * 1000);
         $scope.dateRangeEnd = new Date($localStorage.TRIP.end_time * 1000);
+        var okToNext;
         $scope.tripDateStorageUpdate = function(startDate, endDate) {
+                okToNext=true;
             if (!startDate) {
                 alert("没有选择开始日期");
                 return;
@@ -226,6 +254,11 @@ controllerModule
                 alert("没有选择结束日期");
                 return;
             } else {
+                if(startDate>endDate){
+                    alert("开始日期不能大于截止日期");
+                    okToNext=false
+
+                }
                 $localStorage.TRIP.start_time = startDate / 1000;
                 $localStorage.TRIP.end_time = endDate / 1000;
             }
@@ -237,7 +270,10 @@ controllerModule
         };
         $scope.nextTripTitleEdit = function() {
             $scope.tripDateStorageUpdate($scope.dateRangeStart, $scope.dateRangeEnd);
-            $state.go('app.dashboard.titleEdit');
+            if(okToNext==true){
+            $state.go('app.dashboard.titleEdit')
+            }
+
         };
 
         function _renderDateCallback($view, $dates, $leftDate, $upDate, $rightDate) {
@@ -290,8 +326,12 @@ controllerModule
         };
 
     }]).controller('TripSponsorEditCtrl', ['$scope', '$state', 'baseURL', '$http', '$localStorage', function($scope, $state, baseURL, $http, $localStorage) {
-        $scope.sponsors = $localStorage.SPONSOR;
-        $scope.private_users = $localStorage.TRIP.private_users;
+        if($localStorage.SPONSOR){
+        $scope.sponsors = $localStorage.SPONSOR
+        }
+        if($localStorage.TRIP.private_users){
+        $scope.private_users = $localStorage.TRIP.private_users
+         }   
 
         function _checkSponsorsNumber(sponsors) {
             var max_sponsor = 0;
@@ -336,6 +376,7 @@ controllerModule
 
     }]).controller('tripTravelCtrl', ['$scope', '$state', 'Upload', 'baseURL', '$filter', '$localStorage', function($scope, $state, Upload, baseURL, $filter, $localStorage) {
         $filter('travelJsonToHtmlFilter')($localStorage.TRIP.detail);
+        //console.log(travelsText);
         $scope.onFileSelect = function($files) {
             for (var i = 0; i < $files.length; i++) {
                 var $file = $files[i];
@@ -370,7 +411,7 @@ controllerModule
                 });
             },
             insertDateToContent: function() {
-                var dateDiv = "<div class='tripDatas form-inline' data-type='date'>" + '<input type="text" class="date form-control"><input type="text" class="time start form-control" />' + "-" + '<input type="text" class="time end form-control" />' + '<a class="glyphicon glyphicon-remove-circle target-remove delete"></a>' + "</div>"
+                var dateDiv = "<div class='tripDatas form-inline' data-type='date'>" + '<input ng-model="" type="text" class="date form-control"><input type="text" class="time start form-control" />' + "-" + '<input type="text" class="time end form-control" />' + '<a class="glyphicon glyphicon-remove-circle target-remove delete"></a>' + "</div>"
                 $('#travel_content').append(dateDiv);
                 $.datetimepicker.setLocale('zh');
                 $('.date').datetimepicker({
@@ -488,8 +529,12 @@ controllerModule
             if ($localStorage.IMAGE.croppedImage) {
                 croppedImg = d2bService.convert($localStorage.IMAGE.croppedImage);
             }
+            console.log(data);
 
             tripTravelService.uploadData({ file: croppedImg, data: data, url: url, method: "PUT" });
+            console.log('alpha');
+
+            
         }
 
         $scope.tripCreateCommited = function() {
@@ -499,6 +544,7 @@ controllerModule
             var data = tripTravelService.combinationData();
             data.latitude = $localStorage.TRIP.latitude || 0;
             data.longitude = $localStorage.TRIP.longitude || 0;
+            console.log(data);
             $http({
                 method: 'POST',
                 url: baseURL + "groups",
@@ -531,6 +577,9 @@ controllerModule
                     });
                 } else {
                     alert(res.data.msg);
+                    $('body').loading('stop');
+                    $state.go('app.dashboard');
+
                 }
             }, function errorCallback(err) {});
 
