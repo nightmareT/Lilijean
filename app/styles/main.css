@@ -19,6 +19,13 @@ textarea {
 .fileUpload img:hover {
     background-color: rgba(30, 30, 30, 0.1);
 }
+.groupList {
+    width: 100%;
+    height:200px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
 
 .fileUpload input.upload {
     position: absolute;

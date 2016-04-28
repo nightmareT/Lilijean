@@ -43,5 +43,8 @@ routersModule
         }).state('app.dashboard.customEdit', {
             url: "/custom-edit",
             templateUrl: 'partials/tripCustomEditTpl.html'
+        }).state('app.dashboard.groupList', {
+            url: "/groupList",
+            templateUrl: 'partials/groupList.html'
         })
 }]);

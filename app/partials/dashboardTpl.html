@@ -10,12 +10,13 @@
        <!--  </div>  -->
         <h3 class="text-center sub_msg" ng-show="$storage.USER.role == 'user'">亲，你还没有实名哦，请通过App提交实名</h3>
         <div ng-hide="$storage.TRIP.iscreateStatus">
-            <div id="trip-info_header">
+        <h1>{{$storage.TRIP.iscreateStatus}}</h1>
+            <div id="trip-info_header" ng-background="{{trip.image_url}}">
                 <div class="trip_title" ng-bind="trip.title"></div>
                 <div class="underline"></div>
                 <div class="where" ng-bind="trip.trip_target | tripTargetFilter"></div>
                 <div class="date"><span ng-bind="trip.start_time * 1000 | date: 'yyyy.MM.dd'"></span> - <span ng-bind="trip.end_time * 1000 | date: 'yyyy.MM.dd' "></span></div>
-                <img ng-src="{{trip.image_url}}">
+               <!--  <img ng-src=""> -->
                 <div class="sponsor-wrap">
                     <span ng-repeat="sponsor in trip.sponsors track by $index">
                <img class="sponsor" ng-src="{{sponsor.image.url}}" >

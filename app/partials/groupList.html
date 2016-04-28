@@ -1,0 +1,13 @@
+<<div id="trip-info_header" ng-repeat="group in groups">
+                <div class="trip_title" ng-bind="group.trip_info.title"></div>
+                <div class="underline"></div>
+                <div class="where" ng-bind="group.trip_info.trip_target | tripTargetFilter"></div>
+                <div class="date"><span ng-bind="group.trip_info.start_time * 1000 | date: 'yyyy.MM.dd'"></span> - <span ng-bind="group.trip_info.end_time * 1000 | date: 'yyyy.MM.dd' "></span></div>
+               <!--  <img ng-src="{{group.trip_info.image_url}}"> -->
+                <div class="sponsor-wrap">
+                    <span ng-repeat="sponsor in group.trip_info.sponsors track by $index">
+               <img class="sponsor" ng-src="{{sponsor.image.url}}" >
+            </span>
+                </div>
+            </div>
+            <button ng-click="createNewGroup()">add</button>

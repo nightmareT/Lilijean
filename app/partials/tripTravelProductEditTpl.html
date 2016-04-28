@@ -45,7 +45,9 @@
             <button class="btn btn-primary c_button" ng-click="nextCustomEdit()" ng-if="selectedStatus.custom"> 下一步 </button>
             <button class="btn btn-primary c_button" ng-if="!selectedStatus.custom">
                 <span ng-if="$storage.TRIP.iscreateStatus" ng-click="tripCreateCommited()">创建派对</span>
+                
                 <span ng-if="!$storage.TRIP.iscreateStatus" ng-click="tripUpdateCommited()">更新派对</span>
+
             </button>
         </div>
     </div>

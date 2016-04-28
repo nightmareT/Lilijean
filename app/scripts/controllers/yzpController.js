@@ -28,7 +28,7 @@ controllerModule
 
     }]).controller('DashboardCtrl', ['$scope', '$state', 'baseURL', '$http', '$filter', '$localStorage', 'tripProductSupplyService', 'tripSponsorService', '$q', 'numberService', function($scope, $state, baseURL, $http, $filter, $localStorage, tripProductSupplyService, tripSponsorService, $q, numberService) {
         $scope.meals = numberService.numbers;
-       // console.log($scope.$storage.TRIP);
+       console.log($scope.$storage.TRIP);
         // var noya= function(){
         //     var defer=$q.defer();        //a small test about how to use $q in angular 
         //     if(1){
@@ -42,7 +42,58 @@ controllerModule
         // var promise=noya();
         // promise.then(function(){console.log("x")},function(){console.log("z")});
         $scope.admin={};
-               
+        $scope.createNewGroup=function(){
+            var noya=function(){
+              var defer=$q.defer();
+            
+            $http.get(baseURL + "groups/new").then(function(res) {
+             if(res.data.group){
+             group_id = res.data.group;
+             defer.resolve(group_id)
+            }
+            else{
+                defer.reject()
+            }
+           
+
+            });
+             return defer.promise
+        }
+        var promise=noya();
+
+        promise.then(function(group_id){
+            console.log(group_id);
+            $localStorage.TITLE="";
+             $localStorage.TRIP = {
+                    title: "",
+                    trip_target: [],
+                    start_time: Math.round(Date.now() / 1000) + 86400,
+                    end_time: Math.round(Date.now() / 1000) + 86400,
+                    detail: "[]",
+                    set_meals: [],
+                    custom_trip: false,
+                    group_id: group_id,
+                    private_users: 0,
+                    latitude: 0,
+                    longitude: 0,
+                    sponsor_ids: [],
+                    travel_id: "",
+                    _id: group_id,
+                    iscreateStatus: true
+                   
+                }
+            $state.go('app.dashboard.targetEdit')
+        },function(){
+
+        });
+        //  $http.get(baseURL + "groups/new").then(function(res) {
+        
+        //       group_id = res.data.group;
+        //       return group_id
+
+        // });
+        // console.log(group_id);
+        }               
         
                 $scope.saveData = function(group_id) {
             var promiseCreateTrip = tripSponsorService.getData();
@@ -103,17 +154,17 @@ controllerModule
         // noya();
         $scope.initData = function() {
             //1.获取基本信息
-            if ($localStorage.TRIP) {
-                console.log("exit");
-                $scope.trip = angular.copy($localStorage.TRIP);
-                console.log($scope.trip.detail);
+            // if ($localStorage.TRIP) {
+            //     console.log("exit");
+            //     $scope.trip = angular.copy($localStorage.TRIP);
+            //     console.log($scope.trip.detail);
 
-               // $scope.trip.detail = $filter('tripTravelFilter')(JSON.parse($scope.trip.detail));
-               // console.log($scope.trip.detail);
-                $scope.trip.set_meals = $filter('tripProductDescFilter')($scope.trip.set_meals);
-                $scope.productSupply = tripProductSupplyService($scope.trip);
-                $scope.initSponsors();
-            } else {
+            //    // $scope.trip.detail = $filter('tripTravelFilter')(JSON.parse($scope.trip.detail));
+            //    // console.log($scope.trip.detail);
+            //     $scope.trip.set_meals = $filter('tripProductDescFilter')($scope.trip.set_meals);
+            //     $scope.productSupply = tripProductSupplyService($scope.trip);
+            //     $scope.initSponsors();
+            // } else {
                 var promiseOwnerGroups = $q(function(resolve, reject) {
                     $http.get(baseURL + 'users/owner_groups')
                         .then(function(res) {
@@ -135,7 +186,9 @@ controllerModule
                 });
                 promiseOwnerGroups.then(
                     function(res) {
+                        $scope.groups=res.data.groups;
                         $scope.trip = res.data.groups[0].trip_info;
+                      //  console.log(res.data.groups[0]);
                         $scope.trip.detail = $filter('tripTravelFilter')(JSON.parse($scope.trip.detail));
                         $scope.trip.set_meals = $filter('tripProductDescFilter')($scope.trip.set_meals);
                         $scope.productSupply = tripProductSupplyService($scope.trip);
@@ -167,7 +220,7 @@ controllerModule
                                 $scope.saveData(group_id);
                             });
                     });
-            }
+            
         };
         $scope.initStatus = function() {
                 $scope.initData();
@@ -447,6 +500,8 @@ controllerModule
         }
     }]).controller('tripTravelProductCtrl', ['$scope', 'baseURL', 'tripTravelService', '$localStorage', '$state', '$http', 'clearService', 'd2bService', '$q', 'Upload', function($scope, baseURL, tripTravelService, $localStorage, $state, $http, clearService, d2bService, $q, Upload) {
         //Travel相关的工具方法
+
+        
         var TravelProduct = {
             initSelected: function() {
                 $localStorage.TRIP.private = false;
@@ -529,7 +584,7 @@ controllerModule
             if ($localStorage.IMAGE.croppedImage) {
                 croppedImg = d2bService.convert($localStorage.IMAGE.croppedImage);
             }
-            console.log(data);
+            
 
             tripTravelService.uploadData({ file: croppedImg, data: data, url: url, method: "PUT" });
             console.log('alpha');
