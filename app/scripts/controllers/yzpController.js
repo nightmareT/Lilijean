@@ -28,7 +28,7 @@ controllerModule
 
     }]).controller('DashboardCtrl', ['$scope', '$state', 'baseURL', '$http', '$filter', '$localStorage', 'tripProductSupplyService', 'tripSponsorService', '$q', 'numberService', function($scope, $state, baseURL, $http, $filter, $localStorage, tripProductSupplyService, tripSponsorService, $q, numberService) {
         $scope.meals = numberService.numbers;
-       console.log($scope.$storage.TRIP);
+      // console.log($scope.$storage.TRIP);
         // var noya= function(){
         //     var defer=$q.defer();        //a small test about how to use $q in angular 
         //     if(1){
@@ -42,6 +42,31 @@ controllerModule
         // var promise=noya();
         // promise.then(function(){console.log("x")},function(){console.log("z")});
         $scope.admin={};
+        $scope.createNewTeam=function(){
+            $localStorage.TITLE="";
+            group_id=$scope.groups[0]._id;
+             $localStorage.TRIP = {
+                    title: "",
+                    trip_target: [],
+                    start_time: Math.round(Date.now() / 1000) + 86400,
+                    end_time: Math.round(Date.now() / 1000) + 86400,
+                    detail: "[]",
+                    set_meals: [],
+                    custom_trip: false,
+                    group_id: group_id,
+                    private_users: 0,
+                    latitude: 0,
+                    longitude: 0,
+                    sponsor_ids: [],
+                    travel_id: "",
+                    _id: group_id,
+                    iscreateStatus: false
+                   
+                   
+                };
+            $state.go('app.dashboard.targetEdit')
+
+        }
         $scope.createNewGroup=function(){
             var noya=function(){
               var defer=$q.defer();
@@ -79,7 +104,8 @@ controllerModule
                     sponsor_ids: [],
                     travel_id: "",
                     _id: group_id,
-                    iscreateStatus: true
+                    iscreateStatus: true,
+                    new_group:"atalasii"
                    
                 }
             $state.go('app.dashboard.targetEdit')
@@ -87,7 +113,7 @@ controllerModule
 
         });
         //  $http.get(baseURL + "groups/new").then(function(res) {
-        
+            
         //       group_id = res.data.group;
         //       return group_id
 
@@ -188,7 +214,7 @@ controllerModule
                     function(res) {
                         $scope.groups=res.data.groups;
                         $scope.trip = res.data.groups[0].trip_info;
-                      //  console.log(res.data.groups[0]);
+                        console.log(res.data.groups);
                         $scope.trip.detail = $filter('tripTravelFilter')(JSON.parse($scope.trip.detail));
                         $scope.trip.set_meals = $filter('tripProductDescFilter')($scope.trip.set_meals);
                         $scope.productSupply = tripProductSupplyService($scope.trip);

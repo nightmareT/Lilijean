@@ -98,6 +98,12 @@ serviceModule
                 data.trip_target = $localStorage.TRIP.trip_target;
                 data.private_users = $localStorage.TRIP.private_users;
                 data.sponsor_ids = [];
+                console.log($localStorage.TRIP.new_group);
+                if(typeof($localStorage.TRIP.new_group)=="string"){
+                    data.new_group=$localStorage.TRIP.new_group;
+                    console.log("neko");
+
+                }
                 //标识套餐类型，私人定制不允许修改
                 if (!$localStorage.TRIP.private) {
                     data.custom_trip = $localStorage.TRIP.custom_trip;
