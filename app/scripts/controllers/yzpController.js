@@ -42,10 +42,10 @@ controllerModule
         // var promise=noya();
         // promise.then(function(){console.log("x")},function(){console.log("z")});
         $(document).ready(function($){
-    $("button").hover(function(){$(".shadow").css("display","block");console.log("1")},
-    function(){$(".shadow").css("display","none");console.log("0")});
+         $("button").hover(function(){$(".shadow").css("display","block");console.log("1")},
+        function(){$(".shadow").css("display","none");console.log("0")});
  
-}(jQuery));
+        }(jQuery));
 
 
     

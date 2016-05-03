@@ -154,11 +154,11 @@ textarea {
         
         border-radius: 35px;
     }
-   /* .team .shadow:hover{
+    .team:hover .shadow{
         display: block;
         background: rgba(0,0,0,0.6);
 
-    }*/
+    }
     
     .title{
         line-height: 40px;
