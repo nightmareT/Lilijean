@@ -41,6 +41,14 @@ controllerModule
         // }
         // var promise=noya();
         // promise.then(function(){console.log("x")},function(){console.log("z")});
+        $(document).ready(function($){
+    $("button").hover(function(){$(".shadow").css("display","block");console.log("1")},
+    function(){$(".shadow").css("display","none");console.log("0")});
+ 
+}(jQuery));
+
+
+    
         $scope.admin={};
         $scope.createNewTeam=function(){
             $localStorage.TITLE="";
@@ -222,7 +230,7 @@ controllerModule
                         var copyTrip = angular.copy($scope.trip);
                         copyTrip.detail = JSON.stringify(copyTrip.detail);
                         $localStorage.TRIP = copyTrip;
-
+                        console.log($scope.groups[0].status);
 
                         //初始化赞助商
                         $scope.initSponsors();
@@ -259,6 +267,12 @@ controllerModule
         // console.log($localStorage.TRIP);
         // console.log($scope.$storage.TRIP.iscreateStatus);
          //console.log($scope.$storage.TRIP.status);
+        // $scope.listNum=[
+        // {left:10px},
+        // {left:40px},
+        // {left:70px}
+        // ];
+
 
         $scope.tripEdit = function() {
             $localStorage.STATUS = "YES";
