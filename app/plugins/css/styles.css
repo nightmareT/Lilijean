@@ -307,7 +307,7 @@ header .full-screen {
 }
 
 .sticky-navigation .navbar-header img {
-    max-height: 30px;
+  
     -webkit-backface-visibility: hidden;
 }
 

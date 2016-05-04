@@ -140,19 +140,55 @@ textarea {
         width: 400px;
         height: 400px;
         display: none;
-        background: rgba(0,0,0,0.25);
+       
         z-index: 1000;
 
     }
     .team .shadow .content{
+        cursor: pointer;
         position: absolute;
         top:165px;
         left: 90px;
         width: 70px;
         height: 70px;
         background: rgba(0,0,0,0.65);
-        
         border-radius: 35px;
+    }
+    .team .shadow img{
+        position: relative;
+        top:11px;
+        left: 23px;
+        opacity: 0.65;
+    }
+    .team .shadow p{
+        opacity: 0.65;
+        color: white;
+        font-size: 14px;
+        position: relative;
+        left: 20px;
+        top: 10px;
+    }
+    .team .shadow .edit{
+        cursor: pointer;
+        position: absolute;
+        top:165px;
+        right: 90px;
+        width: 70px;
+        height: 70px;
+        background: rgba(0,0,0,0.65);
+        border-radius: 35px;
+
+    }
+    .team .shadow .buildTeam{
+        cursor: pointer;
+        position: absolute;
+        top:165px;
+        right: 165px;
+        width: 70px;
+        height: 70px;
+        background: rgba(0,0,0,0.65);
+        border-radius: 35px;
+
     }
     .team:hover .shadow{
         display: block;
@@ -175,6 +211,11 @@ textarea {
         height: 225px;
 
     }
+    .pagepicture .mainpic{
+        max-width: 100%;
+        max-height: 100%;
+    }
+
     .pagepicture div{
         width: 30px;
         height: 30px;
@@ -184,6 +225,14 @@ textarea {
         top:10px;
         left: 10px;
     }
+     .pagepicture div img{
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+        max-width: 100%;
+        
+
+     }
     .tripcontent{
         width: 100%;
         height: 135px;
@@ -291,8 +340,10 @@ textarea {
 }
 
 .sticky-navigation .navbar-header img {
-    max-height: 30px;
+    height: 45px;
     -webkit-backface-visibility: hidden;
+    position: relative;
+    bottom:7.5px;
 }
 
 .sticky-navigation .main-navigation .current a {

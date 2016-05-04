@@ -46,5 +46,8 @@ routersModule
         }).state('app.dashboard.groupList', {
             url: "/groupList",
             templateUrl: 'partials/groupList.html'
+        }).state('app.dashboard.groupDetail', {
+            url: "/groupDetail/:index",
+            templateUrl: 'partials/groupDetail.html'
         })
 }]);

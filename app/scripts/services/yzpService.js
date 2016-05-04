@@ -156,14 +156,14 @@ serviceModule
                                 clearService.clearTempCache();
                                 $localStorage.STATUS = "NO";
                                 $('body').loading('stop');
-                                $state.transitionTo('app.dashboard', null, { 'reload': true });
+                                $state.transitionTo('app.dashboard.groupList', null, { 'reload': true });
                             }
                         });
                     } else {
                         clearService.clearTempCache();
                         $localStorage.STATUS = "NO";
                         $('body').loading('stop');
-                        $state.transitionTo('app.dashboard', null, { 'reload': true });
+                        $state.transitionTo('app.dashboard.groupList', null, { 'reload': true });
                     }
                 });
             }

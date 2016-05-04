@@ -16,7 +16,7 @@ controllerModule
         });
 
         $scope.redirectToTripEdit = function() {
-            $state.transitionTo('app.dashboard', null, { 'reload': true });
+            $state.go('app.dashboard.groupList');
         }
 
     }]).controller('LoginModalCtrl', ['$scope', '$state', 'loginModalSrv', function($scope, $state, loginModalSrv) {
@@ -26,7 +26,7 @@ controllerModule
         }
     }]).controller('MainCtrl', ['$scope', 'baseURL', '$http', function($scope, baseURL, $http) {
 
-    }]).controller('DashboardCtrl', ['$scope', '$state', 'baseURL', '$http', '$filter', '$localStorage', 'tripProductSupplyService', 'tripSponsorService', '$q', 'numberService', function($scope, $state, baseURL, $http, $filter, $localStorage, tripProductSupplyService, tripSponsorService, $q, numberService) {
+    }]).controller('DashboardCtrl', ['$scope', '$state', 'baseURL', '$http', '$filter', '$localStorage', 'tripProductSupplyService', 'tripSponsorService', '$q', 'numberService', '$stateParams',function($scope, $state, baseURL, $http, $filter, $localStorage, tripProductSupplyService, tripSponsorService, $q, numberService,$stateParams) {
         $scope.meals = numberService.numbers;
       // console.log($scope.$storage.TRIP);
         // var noya= function(){
@@ -41,18 +41,12 @@ controllerModule
         // }
         // var promise=noya();
         // promise.then(function(){console.log("x")},function(){console.log("z")});
-        $(document).ready(function($){
-         $("button").hover(function(){$(".shadow").css("display","block");console.log("1")},
-        function(){$(".shadow").css("display","none");console.log("0")});
- 
-        }(jQuery));
-
-
-    
+        $scope.nymph="what";
         $scope.admin={};
-        $scope.createNewTeam=function(){
+        $scope.createNewTeam=function($index){
+            console.log($index);
             $localStorage.TITLE="";
-            group_id=$scope.groups[0]._id;
+            group_id=$scope.groups[$index]._id;
              $localStorage.TRIP = {
                     title: "",
                     trip_target: [],
@@ -221,19 +215,19 @@ controllerModule
                 promiseOwnerGroups.then(
                     function(res) {
                         $scope.groups=res.data.groups;
-                        $scope.trip = res.data.groups[0].trip_info;
+                        // $scope.trip = res.data.groups[0].trip_info;
                         console.log(res.data.groups);
-                        $scope.trip.detail = $filter('tripTravelFilter')(JSON.parse($scope.trip.detail));
-                        $scope.trip.set_meals = $filter('tripProductDescFilter')($scope.trip.set_meals);
-                        $scope.productSupply = tripProductSupplyService($scope.trip);
-                        //存储TRIP
-                        var copyTrip = angular.copy($scope.trip);
-                        copyTrip.detail = JSON.stringify(copyTrip.detail);
-                        $localStorage.TRIP = copyTrip;
-                        console.log($scope.groups[0].status);
+                        // $scope.trip.detail = $filter('tripTravelFilter')(JSON.parse($scope.trip.detail));
+                        // $scope.trip.set_meals = $filter('tripProductDescFilter')($scope.trip.set_meals);
+                        // $scope.productSupply = tripProductSupplyService($scope.trip);
+                        // //存储TRIP
+                        // var copyTrip = angular.copy($scope.trip);
+                        // copyTrip.detail = JSON.stringify(copyTrip.detail);
+                        // $localStorage.TRIP = copyTrip;
+                        // console.log($scope.groups[0].status);
 
-                        //初始化赞助商
-                        $scope.initSponsors();
+                        // //初始化赞助商
+                        // $scope.initSponsors();
                     },
                     function(group_id) {
                         var promiseCreateGroup = $q(function(resolve, reject) {
@@ -271,10 +265,20 @@ controllerModule
         // {left:10px},
         // {left:40px},
         // {left:70px}
+        $scope.groupDetail=function($index){
+            
+
+
+        }
         // ];
+        if(typeof $stateParams.index!="undefined"){
+        console.log($stateParams.index)
+    }
 
+        $scope.tripEdit = function($index) {
+            console.log($localStorage.TRIP);
+            $localStorage.TRIP=$scope.groups[$index].trip_info;
 
-        $scope.tripEdit = function() {
             $localStorage.STATUS = "YES";
             $state.go('app.dashboard.targetEdit');
         }
@@ -673,7 +677,7 @@ controllerModule
                 } else {
                     alert(res.data.msg);
                     $('body').loading('stop');
-                    $state.go('app.dashboard');
+                    $state.go('app.dashboard.groupList');
 
                 }
             }, function errorCallback(err) {});
@@ -735,4 +739,25 @@ controllerModule
         $scope.deleteCurrentMeal = function(self, index) {
             $scope.setMeals.splice(index, 1);
         }
+    }]).controller("GroupDetailCtr",['$scope', '$state', 'baseURL', '$http', '$filter', '$localStorage', 'tripProductSupplyService', 'tripSponsorService', '$q', 'numberService', '$stateParams',function($scope, $state, baseURL, $http, $filter, $localStorage, tripProductSupplyService, tripSponsorService, $q, numberService,$stateParams){
+                        
+                        //console.log($scope.trip);
+                        if(!$scope.trip){
+                        console.log($stateParams.index);
+                        var index=$stateParams.index;
+                        $scope.trip = $scope.groups[index].trip_info;
+                        console.log($scope.groups[index]);
+                        // $scope.trip.detail = $filter('tripTravelFilter')(JSON.parse($scope.trip.detail));
+                        // $scope.trip.set_meals = $filter('tripProductDescFilter')($scope.trip.set_meals);
+                        $scope.productSupply = tripProductSupplyService($scope.trip);
+                        //存储TRIP
+                        // var copyTrip = angular.copy($scope.trip);
+                        // copyTrip.detail = JSON.stringify(copyTrip.detail);
+                        // $localStorage.TRIP = copyTrip;
+                       
+
+                        //初始化赞助商
+                        $scope.initSponsors();
+                    }
+
     }])

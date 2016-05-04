@@ -6,10 +6,13 @@
                 <div  class="team" ng-repeat="group in groups">
         <div class="title" ng-bind="group.trip_info.title"></div>
         <div class="pagepicture">
-        <div ng-repeat="sponsor in group.trip_info.title.sponsors" style="x in listNum"></div>
+        <div ng-repeat="sponsor in group.trip_info.sponsors">
+            <img  ng-src={{sponsor.image.url}}>
+
+        </div>
         
 
-        <img src="images/prince.png">    
+        <img class="mainpic"ng-src={{group.trip_info.image_url}}>    
         </div>
         <div class="tripcontent">
             <div class="purpose" ng-bind="group.trip_info.trip_target | tripTargetFilter"></div>
@@ -37,10 +40,25 @@
         </div>
         <div class="shadow">
     
-            <div class="content">详情</div>
-            <div class="edit">编辑</div>
+            <div class="content" ng-if="group.status=='prehead'" ui-sref="app.dashboard.groupDetail({index:$index})">
+                <img src="images/详情.png">
+                <p>详情</p>
+            </div>
+            <div class="edit"  ng-if="group.status=='prehead'" ng-click="tripEdit($index)">
+                <img src="images/编辑.png">
+                <p>编辑</p>
+            </div>
+            <div class="buildTeam"  ng-if="group.status=='cancel'" ng-click="createNewTeam($index)">
+                <img src="images/编辑.png">
+                <p>编辑</p>
+            </div>
+            <div class="buildTeam"  ng-if="group.status=='pending'" ui-sref="app.dashboard.groupDetail({index:$index})">
+                <img src="images/详情.png">
+                <p>详情</p>
+            </div>
         </div>
 
     </div>
     </div>
-    <button>007</button>
+    <button ng-click="createNewGroup()">Click me</button>
+    
