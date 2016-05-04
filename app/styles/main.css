@@ -108,7 +108,210 @@ textarea {
 .sub_msg {
     padding: 2rem 0px;
 }
+/**============================
+         grouplist
+=============================**/
+ .continer{
+        width: 80%;
+        min-width: 1380px;
+        margin:0 auto;
 
+    }
+    .team{
+        background: white;
+        display: inline-block;
+        height: 400px;
+        width: 400px;
+        border: 1px solid #eeeeee;
+        border-radius: 6px;
+        margin-left: 30px;
+        margin-right: 30px;
+        font-size: 0;
+        position: relative;
+    }
+    #demo{
+    width: 500px;
+    margin: auto; /* 或者 margin: 0 auto; */
+}
+    .team .shadow{
+        position: absolute;
+        left: 0;
+        top:  0;
+        width: 400px;
+        height: 400px;
+        display: none;
+       
+        z-index: 1000;
+
+    }
+    .team .shadow .content{
+        cursor: pointer;
+        position: absolute;
+        top:165px;
+        left: 90px;
+        width: 70px;
+        height: 70px;
+        background: rgba(0,0,0,0.65);
+        border-radius: 35px;
+    }
+    .team .shadow img{
+        position: relative;
+        top:11px;
+        left: 23px;
+        opacity: 0.65;
+    }
+    .team .shadow p{
+        opacity: 0.65;
+        color: white;
+        font-size: 14px;
+        position: relative;
+        left: 20px;
+        top: 10px;
+    }
+    .team .shadow .edit{
+        cursor: pointer;
+        position: absolute;
+        top:165px;
+        right: 90px;
+        width: 70px;
+        height: 70px;
+        background: rgba(0,0,0,0.65);
+        border-radius: 35px;
+
+    }
+    .team .shadow .buildTeam{
+        cursor: pointer;
+        position: absolute;
+        top:165px;
+        right: 165px;
+        width: 70px;
+        height: 70px;
+        background: rgba(0,0,0,0.65);
+        border-radius: 35px;
+
+    }
+    .team:hover .shadow{
+        display: block;
+        background: rgba(0,0,0,0.6);
+
+    }
+    
+    .title{
+        line-height: 40px;
+        
+        text-align: center;
+        font-size: 16px;
+        color: #700000;
+        width:100%;
+        height: 40px;
+    }
+    .pagepicture{
+        position: relative;
+        width: 100%;
+        height: 225px;
+
+    }
+    .pagepicture .mainpic{
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .pagepicture div{
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        border-radius: 15px;
+        background: #dee;
+        top:10px;
+        left: 10px;
+    }
+     .pagepicture div img{
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+        max-width: 100%;
+        
+
+     }
+    .tripcontent{
+        width: 100%;
+        height: 135px;
+    }
+    .tripcontent .purpose{
+
+        line-height: 24px;
+        width: 100%;
+        height: 40px;
+        text-align: center;
+        font-size: 14px;
+        color: #700000;
+
+    }
+    .tripcontent .date{
+        width: 100%;
+        height: 35px;
+        text-align: center;
+        font-size: 12px;
+        color: #700000;
+    }
+    .tripcontent .show{
+        width: 100%;
+        height: 60px;
+
+    }
+    .tripcontent .show .icon1{
+        display: inline-block;
+        width:33%;
+        height: 60px;
+
+
+
+    }
+    .tripcontent .show p{
+        line-height: 18px;
+        font-size: 7px;
+        text-align: center;
+        display: inline-block;
+        position: relative;
+        top:12px;
+         color: #700000;
+        left: 37px;
+    }
+    .tripcontent .show img{
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-top: 15px;
+
+        position: relative;
+        left: 35px;
+
+        
+    }
+    .tripcontent .show .icon2{
+        display: inline-block;
+        width:34%;
+        height: 60px;
+
+    }
+    .tripcontent .show .icon3{
+        display: inline-block;
+        width: 33%;
+        height: 60px;
+    }
+    .tripcontent .show .icon4{
+        display: inline-block;
+        width: 34%;
+        height: 60px;
+        position: relative;
+        left: 135px;
+    }
+  .testbox{
+    background: black;
+    opacity: 0.5;
+    width: 100px;
+    height: 100px;
+  }
 
 /**============================
          NAV HEADER
@@ -137,8 +340,10 @@ textarea {
 }
 
 .sticky-navigation .navbar-header img {
-    max-height: 30px;
+    height: 45px;
     -webkit-backface-visibility: hidden;
+    position: relative;
+    bottom:7.5px;
 }
 
 .sticky-navigation .main-navigation .current a {
